@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hack_yeah_2k24/counter/counter.dart';
 import 'package:hack_yeah_2k24/l10n/l10n.dart';
+import 'package:hack_yeah_2k24/presentation/feature/counter/cubit/counter_cubit.dart';
 
 class CounterPage extends StatelessWidget {
   const CounterPage({super.key});
@@ -49,7 +49,7 @@ class CounterText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final count = context.select((CounterCubit cubit) => cubit.state);
+    final count = context.select((CounterCubit cubit) => cubit.state.count);
     return Text('$count', style: theme.textTheme.displayLarge);
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hack_yeah_2k24/counter/counter.dart';
 import 'package:hack_yeah_2k24/l10n/l10n.dart';
+import 'package:hack_yeah_2k24/presentation/feature/counter/view/counter_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
