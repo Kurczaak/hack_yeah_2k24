@@ -24,6 +24,20 @@
 
 `melos run builder`
 
+## Useful snippets 📝
+
+#### Run build runner
+
+`melos run builder`
+
+#### Add new feature
+
+`mason make flutter_bloc_feature`
+
+#### Add new model
+
+`mason make model`
+
 ---
 
 ## Getting Started 🚀

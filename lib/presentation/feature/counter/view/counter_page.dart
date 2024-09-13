@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hack_yeah_2k24/l10n/l10n.dart';
 import 'package:hack_yeah_2k24/presentation/feature/counter/cubit/counter_cubit.dart';
 
+@RoutePage()
 class CounterPage extends StatelessWidget {
   const CounterPage({super.key});
 

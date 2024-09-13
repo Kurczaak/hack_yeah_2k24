@@ -44,6 +44,7 @@ dev_dependencies:
   mason_cli: ^0.1.0-dev.55
   build_runner: ^2.4.12
   freezed: ^2.5.7
+  auto_route_generator: ^9.0.0
 
 flutter:
   uses-material-design: true
