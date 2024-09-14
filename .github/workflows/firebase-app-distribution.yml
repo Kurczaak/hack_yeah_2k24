@@ -20,21 +20,22 @@ jobs:
           flutter-version: 3.24.3
 
       - name: Decode google-services.json
-        env: 
-            GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
         run: echo "$GOOGLE_SERVICES_JSON" > android/app/google-services.json
 
       - name: Decode key.properties
-        env: 
-            KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
+        env:
+          KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
         run: echo "$KEY_PROPERTIES" > android/key.properties
 
       - name: Decode upload-keystore.jks
-        env: 
-            UPLOAD_KEYSTORE_BASE64: ${{ secrets.UPLOAD_KEYSTORE_BASE64 }}\
+        env:
+          UPLOAD_KEYSTORE_BASE64: ${{ secrets.UPLOAD_KEYSTORE_BASE64 }}\
         path: android/app
-        run: echo "$UPLOAD_KEYSTORE_BASE64" > my-release-key.jks.base64
-        run: base64 -i my-release-key.jks.base64 -o upload-keystore.jks
+        run: |
+          echo "$UPLOAD_KEYSTORE_BASE64" > my-release-key.jks.base64
+          base64 -i my-release-key.jks.base64 -o upload-keystore.jks
 
       - name: 📦 Install Dependencies
         run: |
@@ -48,7 +49,6 @@ jobs:
 
       - name: 🛠️ Build the application
         run: flutter build apk --flavor production -t lib/main_production.dart
-
 
   deploy:
     name: "Deploy"
@@ -65,7 +65,7 @@ jobs:
       - name: 🎯 Upload to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
-            appId: ${{secrets.FIREBASE_APP_ID}}
-            token: ${{secrets.FIREBASE_TOKEN}}
-            groups: testers
-            file: build/app/outputs/flutter-apk/app-production-release.apk
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          token: ${{secrets.FIREBASE_TOKEN}}
+          groups: testers
+          file: build/app/outputs/flutter-apk/app-production-release.apk
