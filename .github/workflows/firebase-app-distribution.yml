@@ -32,8 +32,8 @@ jobs:
       - name: Decode upload-keystore.jks
         env:
           UPLOAD_KEYSTORE_BASE64: ${{ secrets.UPLOAD_KEYSTORE_BASE64 }}\
-        path: android/app
         run: |
+          cd android/app
           echo "$UPLOAD_KEYSTORE_BASE64" > my-release-key.jks.base64
           base64 -i my-release-key.jks.base64 -o upload-keystore.jks
 
