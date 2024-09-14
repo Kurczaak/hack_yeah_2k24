@@ -34,7 +34,8 @@ jobs:
           UPLOAD_KEYSTORE_BASE64: ${{ secrets.UPLOAD_KEYSTORE_BASE64 }}\
         run: |
           cd android/app
-          echo "$UPLOAD_KEYSTORE_BASE64" > my-release-key.jks.base64
+          base64 --help
+          echo "$UPLOAD_KEYSTORE_BASE64" | base64 > upload-keystore.jks
           base64 --decode my-release-key.jks.base64 > upload-keystore.jks
 
       - name: 📦 Install Dependencies
