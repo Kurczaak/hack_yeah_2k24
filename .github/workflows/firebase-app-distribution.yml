@@ -35,8 +35,8 @@ jobs:
         run: |
           cd android/app
           base64 --help
-          echo "$UPLOAD_KEYSTORE_BASE64" | base64 > upload-keystore.jks
-          base64 --decode my-release-key.jks.base64 > upload-keystore.jks
+          echo "$UPLOAD_KEYSTORE_BASE64" | base64 > upload-keystore-base64.txt
+          base64 --decode upload-keystore-base64.txt > upload-keystore.jks
 
       - name: 📦 Install Dependencies
         run: |
