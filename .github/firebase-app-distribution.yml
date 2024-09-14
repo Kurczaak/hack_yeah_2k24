@@ -13,16 +13,16 @@ jobs:
     steps:
       - name: 📚 Git Checkout
         uses: actions/checkout@v4
+      - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: 17
+        distribution: "temurin"
       - name: 🐦 Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: "stable"
           flutter-version: 3.24.3
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: 17
-          distribution: "temurin"
 
       - name: Decode google-services.json
         env: 
