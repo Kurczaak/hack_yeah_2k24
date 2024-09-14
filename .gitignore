@@ -116,3 +116,4 @@ app.*.map.json
 *.g.dart
 *.gr.dart
 
+android/app/google-services.json
