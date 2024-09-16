@@ -32,7 +32,7 @@
 
 #### Add new feature
 
-`mason make flutter_bloc_feature`
+`mason make flutter_bloc_feature -o lib/presentation/feature`
 
 #### Add new model
 
