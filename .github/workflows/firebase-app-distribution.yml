@@ -51,11 +51,11 @@ jobs:
           melos bootstrap
           melos run builder
 
-      - name: 🛠️ Build the application
+      - name: 🛠️ Build the APK
         run: flutter build apk --flavor production -t lib/main_production.dart
 
-      - name: 🌐 Build the application
-        run: flutter build web
+      - name: 🌐 Build the web app
+        run: flutter build web -t lib/main_production.dart
 
       - name: ⬇️ Archive Web APP Production Artifact
         uses: actions/upload-artifact@master
