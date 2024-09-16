@@ -24,7 +24,7 @@ extension ThemeDataExtensions on ThemeData {
       );
 }
 
-extension on BuildContext {
+extension BuildContextExt on BuildContext {
   ThemeData get theme => Theme.of(this);
   ColorPalette get colorPalette => theme.colorPalette;
   AppTypography get appTypography => theme.appTypography;
