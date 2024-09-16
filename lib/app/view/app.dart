@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hack_yeah_2k24/app/router/navigation_observer.dart';
 import 'package:hack_yeah_2k24/app/router/router.dart';
 import 'package:hack_yeah_2k24/app/view/global_providers.dart';
 import 'package:hack_yeah_2k24/l10n/l10n.dart';
+import 'package:hack_yeah_2k24/presentation/feature/theme_switcher/cubit/theme_switcher_cubit.dart';
 import 'package:hack_yeah_2k24/presentation/theme/app_typography.dart';
 import 'package:hack_yeah_2k24/presentation/theme/color_palette.dart';
 import 'package:hack_yeah_2k24/presentation/theme/theme_helpers.dart';
@@ -29,22 +31,30 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GlobalProviders(
-      child: MaterialApp.router(
-        theme: ligthTheme,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        routerConfig: _appRouter.config(
-          navigatorObservers: () => [NavigationLogger()],
-          deepLinkBuilder: (deepLink) {
-            if (kIsWeb) {
-              return deepLink;
-            }
-            if (deepLink.uri.fragment == '/' || deepLink.uri.fragment.isEmpty) {
-              return DeepLink.defaultPath;
-            }
-            return DeepLink.path(deepLink.uri.fragment);
-          },
-        ),
+      child: BlocBuilder<ThemeSwitcherCubit, ThemeSwitcherState>(
+        builder: (context, state) {
+          return MaterialApp.router(
+            theme: state.map(
+              lightMode: (_) => ligthTheme,
+              darkMode: (_) => darkTheme,
+            ),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            routerConfig: _appRouter.config(
+              navigatorObservers: () => [NavigationLogger()],
+              deepLinkBuilder: (deepLink) {
+                if (kIsWeb) {
+                  return deepLink;
+                }
+                if (deepLink.uri.fragment == '/' ||
+                    deepLink.uri.fragment.isEmpty) {
+                  return DeepLink.defaultPath;
+                }
+                return DeepLink.path(deepLink.uri.fragment);
+              },
+            ),
+          );
+        },
       ),
     );
   }
