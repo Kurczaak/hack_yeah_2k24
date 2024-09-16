@@ -9,7 +9,7 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
         AutoRoute(
           initial: true,
-          page: CounterRoute.page,
+          page: UiPreviewRoute.page,
           path: '/',
         ),
       ];
