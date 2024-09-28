@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hack_yeah_2k24/presentation/common/components/card.dart';
 import 'package:hack_yeah_2k24/presentation/common/components/text.dart';
 import 'package:hack_yeah_2k24/presentation/theme/color_palette.dart';
 
@@ -7,20 +6,14 @@ class ColorPalettePreview extends StatelessWidget {
   const ColorPalettePreview({super.key});
 
   @override
-  Widget build(BuildContext context) => UiCard(
+  Widget build(BuildContext context) => Card(
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              UiText.titleMedium('Light'),
-              const SizedBox(height: 8),
               _PalettePreview(colorPalette: ColorPalette.lightPalette),
-              const SizedBox(height: 16),
-              UiText.titleMedium('Dark'),
-              const SizedBox(height: 8),
-              _PalettePreview(colorPalette: ColorPalette.darkPalette),
             ],
           ),
         ),
@@ -58,7 +51,11 @@ class _PalettePreview extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                UiText.labelMedium(name, textAlign: TextAlign.center),
+                UiText.smallHeading(
+                  name,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                ),
               ],
             ),
           );

@@ -23,7 +23,7 @@ class App extends StatelessWidget {
   );
 
   final darkTheme = ThemeDataExtensions.createThemeData(
-    palette: ColorPalette.darkPalette,
+    palette: ColorPalette.lightPalette,
     typography: AppTypography.defaultTypography,
     brightness: Brightness.dark,
   );

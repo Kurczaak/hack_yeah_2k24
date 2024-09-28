@@ -9,8 +9,12 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
         AutoRoute(
           initial: true,
-          page: UiPreviewRoute.page,
-          path: '/',
+          page: DashboardRoute.page,
+          children: [
+            AutoRoute(
+              page: GoogleMapRoute.page,
+            ),
+          ],
         ),
       ];
 
