@@ -10,6 +10,6 @@ part 'test_client.g.dart';
 abstract class TestClient {
   factory TestClient(Dio dio) = _TestClient;
 
-  @POST('${Config.baseUrl}/sample_route')
-  Future<TestResponseDTO> test(@Body() TestRequest body);
+  @GET('${Config.baseUrl}/sample_route')
+  Future<TestResponseDTO> getSampleRoute(@Body() TestRequest bdy);
 }

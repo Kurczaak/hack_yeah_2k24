@@ -8,7 +8,7 @@ class TestDataSource {
 
   TestDataSource({required this.client});
   Future<bool> test() async {
-    final response = await client.test(TestRequest(param: 'test'));
+    final response = await client.getSampleRoute(TestRequest(param: 'test'));
     return response.data.isNotEmpty;
   }
 }
