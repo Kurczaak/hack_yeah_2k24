@@ -28,6 +28,7 @@ dependencies:
   # UI
   gap: ^3.0.1
   cached_network_image: ^3.4.0
+  flutter_typeahead: ^5.2.0
 
   # Navigation
   auto_route: ^9.1.0
@@ -47,6 +48,7 @@ dependencies:
 
   flutter_localizations:
     sdk: flutter
+
 
 dev_dependencies:
   flutter_test:

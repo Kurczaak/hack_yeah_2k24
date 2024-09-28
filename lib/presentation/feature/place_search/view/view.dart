@@ -1,1 +1,1 @@
-export './place_search_page.dart';
+export 'place_search_widget.dart';
