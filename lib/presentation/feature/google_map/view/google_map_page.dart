@@ -34,7 +34,7 @@ class GoogleMapView extends StatelessWidget {
 }
 
 class _MapWidget extends StatefulWidget {
-  const _MapWidget({super.key});
+  const _MapWidget();
 
   @override
   State<_MapWidget> createState() => __MapWidgetState();

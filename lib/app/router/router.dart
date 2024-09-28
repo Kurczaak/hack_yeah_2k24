@@ -12,9 +12,13 @@ class AppRouter extends RootStackRouter {
           path: '/ui=kit',
         ),
         AutoRoute(
-          initial: true,
           page: GoogleMapRoute.page,
-          path: '/',
+          path: '/google-maps',
+        ),
+        AutoRoute(
+          initial: true,
+          page: OsmMapRoute.page,
+          path: '/osm-maps',
         ),
       ];
 
