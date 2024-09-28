@@ -1,3 +1,3 @@
 abstract class Config {
-  static const baseUrl = 'https://base-url.com';
+  static const baseUrl = 'https://hackyea2024.vercel.app';
 }
