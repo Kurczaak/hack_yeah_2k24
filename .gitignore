@@ -116,5 +116,6 @@ app.*.map.json
 *.g.dart
 *.gr.dart
 *config.dart
+.mason/
 
 android/app/google-services.json
