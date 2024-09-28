@@ -36,8 +36,14 @@ dependencies:
   retrofit: ^4.4.1
   dio: ^5.7.0
 
+  # MAPS
+  google_maps_flutter: ^2.6.0
+
   # ENV
   flutter_dotenv: ^5.1.0
+
+  # Typography
+  google_fonts: ^6.2.1
 
   flutter_localizations:
     sdk: flutter

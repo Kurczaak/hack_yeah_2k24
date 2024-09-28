@@ -10,7 +10,11 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           initial: true,
           page: UiPreviewRoute.page,
-          path: '/',
+          path: '/ui=kit',
+        ),
+        AutoRoute(
+          page: GoogleMapRoute.page,
+          path: '/map',
         ),
       ];
 
