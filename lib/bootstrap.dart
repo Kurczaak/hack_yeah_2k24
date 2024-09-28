@@ -3,6 +3,8 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hack_yeah_2k24/di/injection.config.dart';
+import 'package:hack_yeah_2k24/di/injection.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -29,5 +31,6 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
   // Add cross-flavor configuration here
   WidgetsFlutterBinding.ensureInitialized();
+  getIt.init();
   runApp(await builder());
 }
