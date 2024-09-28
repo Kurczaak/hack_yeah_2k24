@@ -54,6 +54,7 @@ class __MapWidgetState extends State<_MapWidget> {
       // initialCameraPosition:
       //     MapConstants.defaultLocation.toCameraPosition(),
       myLocationEnabled: true,
+      polylines: {},
       onMapCreated: mapController.complete,
       // markers: markers,
       // circles: !kDebugMode
