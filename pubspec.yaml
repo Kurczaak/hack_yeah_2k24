@@ -18,6 +18,9 @@ dependencies:
   # Data Classes
   freezed_annotation: ^2.4.4
 
+  # JSON
+  json_annotation: ^4.8.1
+
   # Dependency injection
   get_it: ^7.7.0
   injectable: ^2.4.4
@@ -50,6 +53,7 @@ dev_dependencies:
   freezed: ^2.5.7
   auto_route_generator: ^9.0.0
   retrofit_generator: ^9.1.2
+  json_serializable: ^6.7.1
 
 flutter:
   uses-material-design: true
