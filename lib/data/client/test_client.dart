@@ -10,6 +10,6 @@ part 'test_client.g.dart';
 abstract class TestClient {
   factory TestClient(Dio dio) = _TestClient;
 
-  @POST('${Config.baseUrl}/v1/chat/completions')
+  @POST('${Config.baseUrl}/sample_route')
   Future<TestResponseDTO> test(@Body() TestRequest body);
 }
