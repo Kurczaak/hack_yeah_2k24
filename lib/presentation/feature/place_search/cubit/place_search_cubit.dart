@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:hack_yeah_2k24/data/config/config.dart';
+import 'package:hack_yeah_2k24/data/config/app_configuration.dart';
 import 'package:hack_yeah_2k24/domain/model/place_prediction.dart';
 import 'package:hack_yeah_2k24/domain/model/place_prediction_request.dart';
 import 'package:hack_yeah_2k24/domain/repositories/places_repo.dart';

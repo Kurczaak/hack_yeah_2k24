@@ -4,7 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:hack_yeah_2k24/data/config/config.dart';
+import 'package:hack_yeah_2k24/data/config/app_configuration.dart';
 import 'package:hack_yeah_2k24/di/injection.dart';
 import 'package:hack_yeah_2k24/presentation/common/components/text.dart';
 import 'package:hack_yeah_2k24/presentation/feature/place_search/cubit/place_search_cubit.dart';
