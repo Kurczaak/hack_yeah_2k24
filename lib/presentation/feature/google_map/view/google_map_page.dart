@@ -7,6 +7,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hack_yeah_2k24/data/config/app_configuration.dart';
 import 'package:hack_yeah_2k24/di/injection.dart';
 import 'package:hack_yeah_2k24/presentation/common/components/text.dart';
+import 'package:hack_yeah_2k24/presentation/feature/filters/cubit/filters_cubit.dart';
+import 'package:hack_yeah_2k24/presentation/feature/filters/view/filters_drawer.dart';
 import 'package:hack_yeah_2k24/presentation/feature/place_search/cubit/place_search_cubit.dart';
 import 'package:hack_yeah_2k24/presentation/feature/place_search/view/place_search_widget.dart';
 import 'package:hack_yeah_2k24/presentation/theme/theme_helpers.dart';
@@ -64,7 +66,20 @@ class GoogleMapView extends StatelessWidget {
                 );
               }),
             ),
-            drawer: _Drawer(),
+            drawer: FiltersDrawer(
+              onSafeFilterPressed: () {
+                context.read<FiltersCubit>().changeFilter(FilterType.safe);
+              },
+              onCleanFilterPressed: () {
+                context.read<FiltersCubit>().changeFilter(FilterType.clean);
+              },
+              onRatingFilterPressed: () {
+                context.read<FiltersCubit>().changeFilter(FilterType.rating);
+              },
+              onQuietFilterPressed: () {
+                context.read<FiltersCubit>().changeFilter(FilterType.quiet);
+              },
+            ),
             body: _MapWidget());
       },
     );
@@ -140,66 +155,5 @@ class __MapWidgetState extends State<_MapWidget> {
             ),
           ],
         ));
-  }
-}
-
-class _Drawer extends StatelessWidget {
-  const _Drawer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          // Drawer Header
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
-            child: Text(
-              'Menu',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-              ),
-            ),
-          ),
-          // Drawer Items
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
-            onTap: () {
-              Navigator.pop(context); // Close the drawer
-              // Navigate to Home or update state
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.person),
-            title: Text('Profile'),
-            onTap: () {
-              Navigator.pop(context);
-              // Navigate to Profile
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () {
-              Navigator.pop(context);
-              // Navigate to Settings
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.exit_to_app),
-            title: Text('Logout'),
-            onTap: () {
-              Navigator.pop(context);
-              // Handle logout
-            },
-          ),
-        ],
-      ),
-    );
   }
 }
