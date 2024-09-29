@@ -1,47 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:hack_yeah_2k24/presentation/common/components/card.dart';
 import 'package:hack_yeah_2k24/presentation/common/components/text.dart';
 
 class TypographyPreview extends StatelessWidget {
   const TypographyPreview({super.key});
 
   @override
-  Widget build(BuildContext context) => UiCard(
+  Widget build(BuildContext context) => Card(
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              UiText.displayLarge('Display Large'),
+              UiText.mainHeading('Main Heading'),
               const SizedBox(height: 8),
-              UiText.displayMedium('Display Medium'),
+              UiText.mediumHeading('Medium Heading'),
               const SizedBox(height: 8),
-              UiText.displaySmall('Display Small'),
+              UiText.smallHeading('Small Heading'),
               const SizedBox(height: 24),
-              UiText.headlineLarge('Headline Large'),
+              UiText.smallHeadingBold('Small Heading Bold'),
               const SizedBox(height: 8),
-              UiText.headlineMedium('Headline Medium'),
+              UiText.bodyTextBig('Body Text Big'),
               const SizedBox(height: 8),
-              UiText.headlineSmall('Headline Small'),
+              UiText.bodyTextMedium('Body Text Medium'),
               const SizedBox(height: 24),
-              UiText.titleLarge('Title Large'),
-              const SizedBox(height: 8),
-              UiText.titleMedium('Title Medium'),
-              const SizedBox(height: 8),
-              UiText.titleSmall('Title Small'),
-              const SizedBox(height: 24),
-              UiText.bodyLarge('Body Large'),
-              const SizedBox(height: 8),
-              UiText.bodyMedium('Body Medium'),
-              const SizedBox(height: 8),
-              UiText.bodySmall('Body Small'),
-              const SizedBox(height: 24),
-              UiText.labelLarge('Label Large'),
-              const SizedBox(height: 8),
-              UiText.labelMedium('Label Medium'),
-              const SizedBox(height: 8),
-              UiText.labelSmall('Label Small'),
+              UiText.bodyTextSmall('Body Text Small'),
             ],
           ),
         ),

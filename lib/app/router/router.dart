@@ -8,13 +8,13 @@ class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(
-          page: UiPreviewRoute.page,
-          path: '/ui=kit',
-        ),
-        AutoRoute(
           initial: true,
-          page: GoogleMapRoute.page,
-          path: '/',
+          page: DashboardRoute.page,
+          children: [
+            AutoRoute(
+              page: GoogleMapRoute.page,
+            ),
+          ],
         ),
       ];
 

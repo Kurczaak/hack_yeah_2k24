@@ -1,104 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /// An extension for theme to provide typography in context.
 class AppTypography extends ThemeExtension<AppTypography> {
   const AppTypography({
-    required this.displayLarge,
-    required this.displayMedium,
-    required this.displaySmall,
-    required this.headlineLarge,
-    required this.headlineMedium,
-    required this.headlineSmall,
-    required this.titleLarge,
-    required this.titleMedium,
-    required this.titleSmall,
-    required this.bodyLarge,
-    required this.bodyMedium,
-    required this.bodySmall,
-    required this.labelLarge,
-    required this.labelMedium,
-    required this.labelSmall,
+    required this.mainHeading,
+    required this.mediumHeading,
+    required this.smallHeading,
+    required this.smallHeadingBold,
+    required this.bodyTextBig,
+    required this.bodyTextMedium,
+    required this.bodyTextSmall,
   });
 
-  /// Display large style.
-  final TextStyle displayLarge;
+  final TextStyle mainHeading;
+  final TextStyle mediumHeading;
+  final TextStyle smallHeading;
+  final TextStyle smallHeadingBold;
 
-  /// Display medium style.
-  final TextStyle displayMedium;
-
-  /// Display small style.
-  final TextStyle displaySmall;
-
-  /// Headline large style.
-  final TextStyle headlineLarge;
-
-  /// Headline medium style.
-  final TextStyle headlineMedium;
-
-  /// Headline small style.
-  final TextStyle headlineSmall;
-
-  /// Title large style.
-  final TextStyle titleLarge;
-
-  /// Title medium style.
-  final TextStyle titleMedium;
-
-  /// Title small style.
-  final TextStyle titleSmall;
-
-  /// Body large style.
-  final TextStyle bodyLarge;
-
-  /// Body medium style.
-  final TextStyle bodyMedium;
-
-  /// Body small style.
-  final TextStyle bodySmall;
-
-  /// Label large style.
-  final TextStyle labelLarge;
-
-  /// Label medium style.
-  final TextStyle labelMedium;
-
-  /// Label small style.
-  final TextStyle labelSmall;
+  final TextStyle bodyTextBig;
+  final TextStyle bodyTextMedium;
+  final TextStyle bodyTextSmall;
 
   @override
   ThemeExtension<AppTypography> copyWith({
-    TextStyle? displayLarge,
-    TextStyle? displayMedium,
-    TextStyle? displaySmall,
-    TextStyle? headlineLarge,
-    TextStyle? headlineMedium,
-    TextStyle? headlineSmall,
-    TextStyle? titleLarge,
-    TextStyle? titleMedium,
-    TextStyle? titleSmall,
-    TextStyle? bodyLarge,
-    TextStyle? bodyMedium,
-    TextStyle? bodySmall,
-    TextStyle? labelLarge,
-    TextStyle? labelMedium,
-    TextStyle? labelSmall,
+    TextStyle? mainHeading,
+    TextStyle? mediumHeading,
+    TextStyle? smallHeading,
+    TextStyle? smallHeadingBold,
+    TextStyle? bodyTextBig,
+    TextStyle? bodyTextMedium,
+    TextStyle? bodyTextSmall,
   }) =>
       AppTypography(
-        displayLarge: displayLarge ?? this.displayLarge,
-        displayMedium: displayMedium ?? this.displayMedium,
-        displaySmall: displaySmall ?? this.displaySmall,
-        headlineLarge: headlineLarge ?? this.headlineLarge,
-        headlineMedium: headlineMedium ?? this.headlineMedium,
-        headlineSmall: headlineSmall ?? this.headlineSmall,
-        titleLarge: titleLarge ?? this.titleLarge,
-        titleMedium: titleMedium ?? this.titleMedium,
-        titleSmall: titleSmall ?? this.titleSmall,
-        bodyLarge: bodyLarge ?? this.bodyLarge,
-        bodyMedium: bodyMedium ?? this.bodyMedium,
-        bodySmall: bodySmall ?? this.bodySmall,
-        labelLarge: labelLarge ?? this.labelLarge,
-        labelMedium: labelMedium ?? this.labelMedium,
-        labelSmall: labelSmall ?? this.labelSmall,
+        mainHeading: mainHeading ?? this.mainHeading,
+        mediumHeading: mediumHeading ?? this.mediumHeading,
+        smallHeading: smallHeading ?? this.smallHeading,
+        smallHeadingBold: smallHeadingBold ?? this.smallHeadingBold,
+        bodyTextBig: bodyTextBig ?? this.bodyTextBig,
+        bodyTextMedium: bodyTextMedium ?? this.bodyTextMedium,
+        bodyTextSmall: bodyTextSmall ?? this.bodyTextSmall,
       );
 
   @override
@@ -111,42 +52,29 @@ class AppTypography extends ThemeExtension<AppTypography> {
     }
 
     return AppTypography(
-      displayLarge: TextStyle.lerp(displayLarge, other.displayLarge, t)!,
-      displayMedium: TextStyle.lerp(displayMedium, other.displayMedium, t)!,
-      displaySmall: TextStyle.lerp(displaySmall, other.displaySmall, t)!,
-      headlineLarge: TextStyle.lerp(headlineLarge, other.headlineLarge, t)!,
-      headlineMedium: TextStyle.lerp(headlineMedium, other.headlineMedium, t)!,
-      headlineSmall: TextStyle.lerp(headlineSmall, other.headlineSmall, t)!,
-      titleLarge: TextStyle.lerp(titleLarge, other.titleLarge, t)!,
-      titleMedium: TextStyle.lerp(titleMedium, other.titleMedium, t)!,
-      titleSmall: TextStyle.lerp(titleSmall, other.titleSmall, t)!,
-      bodyLarge: TextStyle.lerp(bodyLarge, other.bodyLarge, t)!,
-      bodyMedium: TextStyle.lerp(bodyMedium, other.bodyMedium, t)!,
-      bodySmall: TextStyle.lerp(bodySmall, other.bodySmall, t)!,
-      labelLarge: TextStyle.lerp(labelLarge, other.labelLarge, t)!,
-      labelMedium: TextStyle.lerp(labelMedium, other.labelMedium, t)!,
-      labelSmall: TextStyle.lerp(labelSmall, other.labelSmall, t)!,
+      mainHeading: TextStyle.lerp(mainHeading, other.mainHeading, t)!,
+      mediumHeading: TextStyle.lerp(mediumHeading, other.mediumHeading, t)!,
+      smallHeading: TextStyle.lerp(smallHeading, other.smallHeading, t)!,
+      smallHeadingBold:
+          TextStyle.lerp(smallHeadingBold, other.smallHeadingBold, t)!,
+      bodyTextBig: TextStyle.lerp(bodyTextBig, other.bodyTextBig, t)!,
+      bodyTextMedium: TextStyle.lerp(bodyTextMedium, other.bodyTextMedium, t)!,
+      bodyTextSmall: TextStyle.lerp(bodyTextSmall, other.bodyTextSmall, t)!,
     );
   }
 
   // use default styles from material2021
-  static final _material2021 = Typography.material2021().tall;
+  static final _mooli = GoogleFonts.mooli();
+  static final _mavenPro = GoogleFonts.mavenPro();
 
   static final defaultTypography = AppTypography(
-    displayLarge: _material2021.displayLarge!,
-    displayMedium: _material2021.displayMedium!,
-    displaySmall: _material2021.displaySmall!,
-    headlineLarge: _material2021.headlineLarge!,
-    headlineMedium: _material2021.headlineMedium!,
-    headlineSmall: _material2021.headlineSmall!,
-    titleLarge: _material2021.titleLarge!,
-    titleMedium: _material2021.titleMedium!,
-    titleSmall: _material2021.titleSmall!,
-    bodyLarge: _material2021.bodyLarge!,
-    bodyMedium: _material2021.bodyMedium!,
-    bodySmall: _material2021.bodySmall!,
-    labelLarge: _material2021.labelLarge!,
-    labelMedium: _material2021.labelMedium!,
-    labelSmall: _material2021.labelSmall!,
+    mainHeading: _mooli.copyWith(fontSize: 36, fontWeight: FontWeight.w400),
+    mediumHeading: _mooli.copyWith(fontSize: 24, fontWeight: FontWeight.w400),
+    smallHeading: _mooli.copyWith(fontSize: 16, fontWeight: FontWeight.w400),
+    smallHeadingBold:
+        _mavenPro.copyWith(fontSize: 16, fontWeight: FontWeight.w600),
+    bodyTextBig: _mooli.copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+    bodyTextMedium: _mooli.copyWith(fontSize: 12, fontWeight: FontWeight.w400),
+    bodyTextSmall: _mooli.copyWith(fontSize: 10, fontWeight: FontWeight.w400),
   );
 }
