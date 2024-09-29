@@ -168,7 +168,7 @@ class UiText extends StatelessWidget {
       textAlign: textAlign,
       overflow: overflow,
       maxLines: maxLines,
-      style: style.copyWith(color: color ?? palette.roadSafety),
+      style: style.copyWith(color: color ?? palette.iconsSecondary),
     );
   }
 }

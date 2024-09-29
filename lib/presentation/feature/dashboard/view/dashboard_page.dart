@@ -12,17 +12,6 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
-      // floatingActionButton:
-      // FloatingActionButton(onPressed: () async {
-      //   // final result = await getIt<RoutesRepo>().getSampleRoute();
-      //   // List<LatLngDTO> decodedPoints =
-      //   //     result.routes.first.polyline.decodePolyline();
-      //   // for (final item in decodedPoints) {
-      //   //   print("POINT:");
-      //   //   print(item.latitude);
-      //   //   print(item.longitude);
-      //   // }
-      // }),
       routes: const [
         GoogleMapRoute(),
         GoogleMapRoute(),
