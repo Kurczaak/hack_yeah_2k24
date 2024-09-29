@@ -116,71 +116,101 @@ class __MapWidgetState extends State<_MapWidget> {
         });
       },
       child: BlocListener<GoogleMapCubit, GoogleMapState>(
-          listener: (context, state) {
-            state.map(
-                initial: (state) {
-                  if (state.clear) {
-                    setState(() {
-                      _polylines = {};
-                    });
-                  }
-                },
-                loading: (_) {},
-                loaded: (state) {
+        listener: (context, state) {
+          state.map(
+              initial: (state) {
+                if (state.clear) {
                   setState(() {
-                    _polylines = {
-                      state.polylineItem.copyWith(
-                        colorParam: context.mapFilterTypeToColor(
-                            context.read<FiltersCubit>().state.filterType),
-                      )
-                    };
+                    _polylines = {};
                   });
+                }
+              },
+              loading: (_) {},
+              loaded: (state) {
+                setState(() {
+                  _polylines = {
+                    state.polylineItem.copyWith(
+                      colorParam: context.mapFilterTypeToColor(
+                          context.read<FiltersCubit>().state.filterType),
+                    )
+                  };
                 });
-          },
+                mapController.future.then((controller) {
+                  controller.animateCamera(CameraUpdate.newLatLngZoom(
+                      state.polylineItem.points.last, 15));
+                });
+              });
+        },
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: _StartEndFinderColumn(),
+            ),
+            Expanded(
+              child: GoogleMap(
+                zoomControlsEnabled: true,
+                initialCameraPosition:
+                    CameraPosition(target: Config.krakowCenter, zoom: 14),
+                myLocationEnabled: true,
+                polylines: _polylines,
+                onMapCreated: mapController.complete,
+                onCameraMove: (position) {
+                  _cameraMoveDebouncer?.cancel();
+                  _cameraMoveDebouncer = Timer(
+                      _cameraDebouncerDuration,
+                      () =>
+                          _placeSearchCubit.setCameraLocation(position.target));
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _StartEndFinderColumn extends StatelessWidget {
+  const _StartEndFinderColumn({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        IconButton(
+            onPressed: () {
+              context.read<GoogleMapCubit>().clear();
+              context.read<PlaceSearchCubit>().clear();
+            },
+            icon: Icon(
+              Icons.chevron_left_outlined,
+              size: 48,
+            )),
+        Expanded(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  children: [
-                    PlaceSearchWidget(
-                      hintText: 'Start',
-                      onSelected: (place) {
-                        context
-                            .read<GoogleMapCubit>()
-                            .setStartId(place.placeId);
-                      },
-                    ),
-                    SizedBox(height: 8),
-                    PlaceSearchWidget(
-                      hintText: 'End',
-                      onSelected: (place) {
-                        context.read<GoogleMapCubit>().setEndId(place.placeId);
-                      },
-                    ),
-                    SizedBox(height: 16),
-                  ],
-                ),
+              PlaceSearchWidget(
+                hintText: 'Start',
+                onSelected: (place) {
+                  context.read<GoogleMapCubit>().setStartId(place.placeId);
+                },
               ),
-              Expanded(
-                child: GoogleMap(
-                  zoomControlsEnabled: true,
-                  initialCameraPosition:
-                      CameraPosition(target: Config.krakowCenter, zoom: 14),
-                  myLocationEnabled: true,
-                  polylines: _polylines,
-                  onMapCreated: mapController.complete,
-                  onCameraMove: (position) {
-                    _cameraMoveDebouncer?.cancel();
-                    _cameraMoveDebouncer = Timer(
-                        _cameraDebouncerDuration,
-                        () => _placeSearchCubit
-                            .setCameraLocation(position.target));
-                  },
-                ),
+              SizedBox(height: 8),
+              PlaceSearchWidget(
+                hintText: 'End',
+                onSelected: (place) {
+                  context.read<GoogleMapCubit>().setEndId(place.placeId);
+                },
               ),
+              SizedBox(height: 16),
             ],
-          )),
+          ),
+        ),
+      ],
     );
   }
 }
