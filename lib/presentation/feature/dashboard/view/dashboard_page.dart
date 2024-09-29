@@ -11,7 +11,7 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
       routes: const [
-        GoogleMapRoute(),
+        HomeRoute(),
         GoogleMapRoute(),
         GoogleMapRoute(),
       ],

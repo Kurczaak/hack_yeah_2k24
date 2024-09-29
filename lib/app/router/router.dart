@@ -14,6 +14,9 @@ class AppRouter extends RootStackRouter {
             AutoRoute(
               page: GoogleMapRoute.page,
             ),
+            AutoRoute(
+              page: HomeRoute.page,
+            ),
           ],
         ),
       ];
