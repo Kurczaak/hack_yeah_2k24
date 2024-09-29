@@ -9,13 +9,29 @@
       "request": "launch",
       "type": "dart",
       "program": "lib/main_development.dart",
+      "deviceId": "chrome",
+      "args": [
+        "--flavor",
+        "development",
+        "--target",
+        "lib/main_development.dart"
+      ]
+    },
+    {
+      "name": "(WEB) Launch development",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_development.dart",
+      "deviceId": "chrome",
       "args": [
         "--flavor",
         "development",
         "--target",
         "lib/main_development.dart",
         "--dart-define",
-                "GOOGLE_MAPS_API_KEY=AIzaSyB1gWtaVetGLyySosC92hOMSq2razu-01E"
+        "GOOGLE_MAPS_API_KEY=YOUR_API_KEY",
+        "--web-browser-flag",
+        "--disable-web-security"
       ]
     },
     {
