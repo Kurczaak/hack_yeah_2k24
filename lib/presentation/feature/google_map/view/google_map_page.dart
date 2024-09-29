@@ -1,18 +1,16 @@
 import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:hack_yeah_2k24/app/router/router.gr.dart';
-import 'package:hack_yeah_2k24/data/model/response/polyline_dto.dart';
-import 'package:hack_yeah_2k24/di/injection.dart';
-import 'package:hack_yeah_2k24/domain/repositories/routes_repo.dart';
 import 'package:hack_yeah_2k24/data/config/app_configuration.dart';
 import 'package:hack_yeah_2k24/di/injection.dart';
 import 'package:hack_yeah_2k24/presentation/common/components/text.dart';
 import 'package:hack_yeah_2k24/presentation/feature/place_search/cubit/place_search_cubit.dart';
 import 'package:hack_yeah_2k24/presentation/feature/place_search/view/place_search_widget.dart';
 import 'package:hack_yeah_2k24/presentation/theme/theme_helpers.dart';
+
 import '../google_map.dart';
 
 const _cameraDebouncerDuration = const Duration(milliseconds: 300);
@@ -26,7 +24,7 @@ class GoogleMapPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => getIt<GoogleMapCubit>()..fetchPolyline(),
+          create: (_) => getIt<GoogleMapCubit>(),
         ),
         BlocProvider(
           create: (context) => getIt<PlaceSearchCubit>(),
@@ -108,12 +106,16 @@ class __MapWidgetState extends State<_MapWidget> {
                 children: [
                   PlaceSearchWidget(
                     hintText: 'Start',
-                    onSelected: (place) {},
+                    onSelected: (place) {
+                      context.read<GoogleMapCubit>().setStartId(place.placeId);
+                    },
                   ),
                   SizedBox(height: 8),
                   PlaceSearchWidget(
                     hintText: 'End',
-                    onSelected: (place) {},
+                    onSelected: (place) {
+                      context.read<GoogleMapCubit>().setEndId(place.placeId);
+                    },
                   ),
                   SizedBox(height: 16),
                 ],

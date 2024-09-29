@@ -8,15 +8,29 @@ import 'package:hack_yeah_2k24/di/injection.dart';
 import 'package:hack_yeah_2k24/domain/repositories/routes_repo.dart';
 import 'package:injectable/injectable.dart';
 
-part 'google_map_state.dart';
 part 'google_map_cubit.freezed.dart';
+part 'google_map_state.dart';
 
 @Injectable()
 class GoogleMapCubit extends Cubit<GoogleMapState> {
   GoogleMapCubit(this.repo) : super(const GoogleMapState.initial());
   final RoutesRepo repo;
 
+  Future<void> setStartId(String id) async {
+    emit(GoogleMapState.initial(startId: id, endId: state.endId));
+  }
+
+  Future<void> setEndId(String id) async {
+    emit(GoogleMapState.initial(startId: state.startId, endId: id));
+    if (state.startId != null) {
+      fetchPolyline();
+    }
+  }
+
   Future<void> fetchPolyline() async {
+    if (state.startId == null || state.endId == null) {
+      return;
+    }
     try {
       emit(GoogleMapState.loading());
       final result = await getIt<RoutesRepo>().getSampleRoute();
@@ -95,7 +109,7 @@ class GoogleMapCubit extends Cubit<GoogleMapState> {
 //       },
 //       builder: (context, state) {
 //         state.map(initial: initial, loading: loading, loaded: (state) {
-          
+
 //         }
 //         return const Placeholder();
 //       },
