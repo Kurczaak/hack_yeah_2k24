@@ -119,3 +119,4 @@ app.*.map.json
 
 android/app/google-services.json
 .mason/bricks.json
+.vscode/launch.json
