@@ -11,6 +11,6 @@ class PlacesRepo {
   Future<List<PlacePrediction>> getPlacePredictions(
       PlacePredictionRequest request) async {
     final result = await dataSource.getPlacePredictions(request);
-    return result.toDomain();
+    return result?.toDomain() ?? [];
   }
 }

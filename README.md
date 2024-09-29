@@ -1,4 +1,16 @@
 # Hack Yeah 2024 Krakow
+![Architecture][architecture]
+
+This project utilizes clean architecture principles.
+
+### Data Layer
+The outermost layer that is responsible for communicating with harsh, real world
+
+### Domain Layer
+The pristine center of the app. Here, business logic of the app takes place
+
+### Presentation Layer
+The layer a user interacts with
 
 ---
 
@@ -164,7 +176,7 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 }
 ```
 
-### Generating Translations
+### Generating Translationsś
 
 To use the latest translations changes, you will need to generate them:
 
@@ -175,3 +187,6 @@ flutter gen-l10n --arb-dir="lib/l10n/arb"
 ```
 
 Alternatively, run `flutter run` and code generation will take place automatically.
+
+
+[architecture]: https://i.ibb.co/fr9qwF4/architecture-drawio.png

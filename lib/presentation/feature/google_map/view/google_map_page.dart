@@ -7,6 +7,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hack_yeah_2k24/data/config/app_configuration.dart';
 import 'package:hack_yeah_2k24/di/injection.dart';
 import 'package:hack_yeah_2k24/presentation/common/components/text.dart';
+import 'package:hack_yeah_2k24/presentation/feature/filters/cubit/filters_cubit.dart';
+import 'package:hack_yeah_2k24/presentation/feature/filters/view/filters_drawer.dart';
 import 'package:hack_yeah_2k24/presentation/feature/place_search/cubit/place_search_cubit.dart';
 import 'package:hack_yeah_2k24/presentation/feature/place_search/view/place_search_widget.dart';
 import 'package:hack_yeah_2k24/presentation/theme/theme_helpers.dart';
@@ -44,7 +46,7 @@ class GoogleMapView extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
             appBar: AppBar(
-              title: Center(child: UiText.smallHeading('Welloway')),
+              title: Center(child: UiText.mediumHeading('Welloway')),
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0),
@@ -57,14 +59,30 @@ class GoogleMapView extends StatelessWidget {
               ],
               leading: Builder(builder: (context) {
                 return IconButton(
-                  icon: Icon(Icons.menu),
+                  icon: Icon(
+                    Icons.menu,
+                    size: 36,
+                  ),
                   onPressed: () {
                     Scaffold.of(context).openDrawer();
                   },
                 );
               }),
             ),
-            drawer: _Drawer(),
+            drawer: FiltersDrawer(
+              onSafeFilterPressed: () {
+                context.read<FiltersCubit>().changeFilter(FilterType.safe);
+              },
+              onCleanFilterPressed: () {
+                context.read<FiltersCubit>().changeFilter(FilterType.clean);
+              },
+              onRatingFilterPressed: () {
+                context.read<FiltersCubit>().changeFilter(FilterType.rating);
+              },
+              onQuietFilterPressed: () {
+                context.read<FiltersCubit>().changeFilter(FilterType.quiet);
+              },
+            ),
             body: _MapWidget());
       },
     );
@@ -87,152 +105,82 @@ class __MapWidgetState extends State<_MapWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<GoogleMapCubit, GoogleMapState>(
-        listener: (context, state) {
-          state.map(
-              initial: (state) {
-                if (state.clear) {
-                  setState(() {
-                    _polylines = {};
-                  });
-                }
-              },
-              loading: (_) {},
-              loaded: (state) {
-                setState(() {
-                  _polylines = {state.polylineItem};
-                });
-              });
-        },
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: _StartEndFinderColumn(),
-            ),
-            Expanded(
-              child: GoogleMap(
-                zoomControlsEnabled: true,
-                initialCameraPosition:
-                    CameraPosition(target: Config.krakowCenter, zoom: 14),
-                myLocationEnabled: true,
-                polylines: _polylines,
-                onMapCreated: mapController.complete,
-                onCameraMove: (position) {
-                  _cameraMoveDebouncer?.cancel();
-                  _cameraMoveDebouncer = Timer(
-                      _cameraDebouncerDuration,
-                      () =>
-                          _placeSearchCubit.setCameraLocation(position.target));
+    return BlocListener<FiltersCubit, FiltersState>(
+      listener: (context, state) {
+        setState(() {
+          _polylines = _polylines
+              .map((e) => e.copyWith(
+                    colorParam: context.mapFilterTypeToColor(state.filterType),
+                  ))
+              .toSet();
+        });
+      },
+      child: BlocListener<GoogleMapCubit, GoogleMapState>(
+          listener: (context, state) {
+            state.map(
+                initial: (state) {
+                  if (state.clear) {
+                    setState(() {
+                      _polylines = {};
+                    });
+                  }
                 },
-              ),
-            ),
-          ],
-        ));
-  }
-}
-
-class _StartEndFinderColumn extends StatelessWidget {
-  const _StartEndFinderColumn({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        IconButton(
-            onPressed: () {
-              context.read<GoogleMapCubit>().clear();
-              context.read<PlaceSearchCubit>().clear();
-            },
-            icon: Icon(
-              Icons.chevron_left_outlined,
-              size: 48,
-            )),
-        Expanded(
+                loading: (_) {},
+                loaded: (state) {
+                  setState(() {
+                    _polylines = {
+                      state.polylineItem.copyWith(
+                        colorParam: context.mapFilterTypeToColor(
+                            context.read<FiltersCubit>().state.filterType),
+                      )
+                    };
+                  });
+                });
+          },
           child: Column(
             children: [
-              PlaceSearchWidget(
-                hintText: 'Start',
-                onSelected: (place) {
-                  context.read<GoogleMapCubit>().setStartId(place.placeId);
-                },
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  children: [
+                    PlaceSearchWidget(
+                      hintText: 'Start',
+                      onSelected: (place) {
+                        context
+                            .read<GoogleMapCubit>()
+                            .setStartId(place.placeId);
+                      },
+                    ),
+                    SizedBox(height: 8),
+                    PlaceSearchWidget(
+                      hintText: 'End',
+                      onSelected: (place) {
+                        context.read<GoogleMapCubit>().setEndId(place.placeId);
+                      },
+                    ),
+                    SizedBox(height: 16),
+                  ],
+                ),
               ),
-              SizedBox(height: 8),
-              PlaceSearchWidget(
-                hintText: 'End',
-                onSelected: (place) {
-                  context.read<GoogleMapCubit>().setEndId(place.placeId);
-                },
+              Expanded(
+                child: GoogleMap(
+                  zoomControlsEnabled: true,
+                  initialCameraPosition:
+                      CameraPosition(target: Config.krakowCenter, zoom: 14),
+                  myLocationEnabled: true,
+                  polylines: _polylines,
+                  onMapCreated: mapController.complete,
+                  onCameraMove: (position) {
+                    _cameraMoveDebouncer?.cancel();
+                    _cameraMoveDebouncer = Timer(
+                        _cameraDebouncerDuration,
+                        () => _placeSearchCubit
+                            .setCameraLocation(position.target));
+                  },
+                ),
               ),
-              SizedBox(height: 16),
             ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _Drawer extends StatelessWidget {
-  const _Drawer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          // Drawer Header
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
-            child: Text(
-              'Menu',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-              ),
-            ),
-          ),
-          // Drawer Items
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
-            onTap: () {
-              Navigator.pop(context); // Close the drawer
-              // Navigate to Home or update state
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.person),
-            title: Text('Profile'),
-            onTap: () {
-              Navigator.pop(context);
-              // Navigate to Profile
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () {
-              Navigator.pop(context);
-              // Navigate to Settings
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.exit_to_app),
-            title: Text('Logout'),
-            onTap: () {
-              Navigator.pop(context);
-              // Handle logout
-            },
-          ),
-        ],
-      ),
+          )),
     );
   }
 }
