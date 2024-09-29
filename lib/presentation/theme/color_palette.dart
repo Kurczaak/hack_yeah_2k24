@@ -79,7 +79,7 @@ class ColorPalette extends ThemeExtension<ColorPalette> {
       };
 
   static const lightPalette = ColorPalette(
-    backgroundPrimary: Color(0xFF000000),
+    backgroundPrimary: Color(0xFFFFFFFF),
     backgroundSecondary: Color(0xFF000000),
     roadSafety: Color(0xFFEC008C),
     iconsPrimary: Color(0xFF4763B8),

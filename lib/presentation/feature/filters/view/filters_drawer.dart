@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hack_yeah_2k24/presentation/common/components/text.dart';
+import 'package:hack_yeah_2k24/presentation/theme/theme_helpers.dart';
 
 import '../filters.dart';
 
@@ -49,6 +50,7 @@ class FiltersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: context.colorPalette.backgroundPrimary,
       width: 100,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -62,7 +64,10 @@ class FiltersView extends StatelessWidget {
             height: 40,
           ),
           IconButton(
-            icon: Icon(Icons.menu),
+            icon: Icon(
+              Icons.menu,
+              size: 36,
+            ),
             onPressed: () {
               Scaffold.of(context).closeDrawer();
             },

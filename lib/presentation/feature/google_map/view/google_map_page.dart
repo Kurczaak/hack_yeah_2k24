@@ -46,7 +46,7 @@ class GoogleMapView extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
             appBar: AppBar(
-              title: Center(child: UiText.smallHeading('Welloway')),
+              title: Center(child: UiText.mediumHeading('Welloway')),
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0),
@@ -59,7 +59,10 @@ class GoogleMapView extends StatelessWidget {
               ],
               leading: Builder(builder: (context) {
                 return IconButton(
-                  icon: Icon(Icons.menu),
+                  icon: Icon(
+                    Icons.menu,
+                    size: 36,
+                  ),
                   onPressed: () {
                     Scaffold.of(context).openDrawer();
                   },
