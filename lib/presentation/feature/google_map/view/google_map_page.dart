@@ -26,7 +26,7 @@ class GoogleMapPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => GoogleMapCubit(),
+          create: (_) => getIt<GoogleMapCubit>()..fetchPolyline(),
         ),
         BlocProvider(
           create: (context) => getIt<PlaceSearchCubit>(),
@@ -84,81 +84,60 @@ class __MapWidgetState extends State<_MapWidget> {
   final Completer<GoogleMapController> mapController =
       Completer<GoogleMapController>();
   Set<Polyline> _polylines = {}; // Set to hold the polyline
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocListener<GoogleMapCubit, GoogleMapState>(
-      listener: (context, state) {
-        state.map(
-            initial: (_) {},
-            loading: (_) {},
-            loaded: (state) {
-              setState(() {
-                _polylines = {state.polylineItem};
-              });
-            });
-      },
-      child: GoogleMap(
-        zoomControlsEnabled: true,
-        initialCameraPosition: CameraPosition(target: LatLng(52.24, 21.02)),
-        myLocationEnabled: true,
-        polylines: _polylines,
-        onMapCreated: mapController.complete,
   Timer? _cameraMoveDebouncer;
-
   PlaceSearchCubit get _placeSearchCubit => context.read<PlaceSearchCubit>();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            children: [
-              PlaceSearchWidget(
-                hintText: 'Start',
-                onSelected: (place) {},
+    return BlocListener<GoogleMapCubit, GoogleMapState>(
+        listener: (context, state) {
+          state.map(
+              initial: (_) {},
+              loading: (_) {},
+              loaded: (state) {
+                setState(() {
+                  _polylines = {state.polylineItem};
+                });
+              });
+        },
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                children: [
+                  PlaceSearchWidget(
+                    hintText: 'Start',
+                    onSelected: (place) {},
+                  ),
+                  SizedBox(height: 8),
+                  PlaceSearchWidget(
+                    hintText: 'End',
+                    onSelected: (place) {},
+                  ),
+                  SizedBox(height: 16),
+                ],
               ),
-              SizedBox(height: 8),
-              PlaceSearchWidget(
-                hintText: 'End',
-                onSelected: (place) {},
+            ),
+            Expanded(
+              child: GoogleMap(
+                zoomControlsEnabled: true,
+                initialCameraPosition:
+                    CameraPosition(target: Config.krakowCenter, zoom: 14),
+                myLocationEnabled: true,
+                polylines: _polylines,
+                onMapCreated: mapController.complete,
+                onCameraMove: (position) {
+                  _cameraMoveDebouncer?.cancel();
+                  _cameraMoveDebouncer = Timer(
+                      _cameraDebouncerDuration,
+                      () =>
+                          _placeSearchCubit.setCameraLocation(position.target));
+                },
               ),
-              SizedBox(height: 16),
-            ],
-          ),
-        ),
-        Expanded(
-          child: GoogleMap(
-            initialCameraPosition:
-                CameraPosition(target: Config.krakowCenter, zoom: 15.0),
-
-            // padding: const EdgeInsets.only(
-            //   bottom: AppDimens.rangeSectionHeight,
-            //   top: AppDimens.horizontalPadding,
-            // ),
-            // initialCameraPosition:
-            //     MapConstants.defaultLocation.toCameraPosition(),
-            myLocationEnabled: true,
-            polylines: {},
-            onMapCreated: mapController.complete,
-            // markers: markers,
-            // circles: !kDebugMode
-            //     ? {}
-            //     : {
-            //         center,
-            //       },
-
-            onCameraMove: (position) {
-              _cameraMoveDebouncer?.cancel();
-              _cameraMoveDebouncer = Timer(_cameraDebouncerDuration,
-                  () => _placeSearchCubit.setCameraLocation(position.target));
-            },
-          ),
-        ),
-      ],
-    );
+            ),
+          ],
+        ));
   }
 }
 
