@@ -102,58 +102,76 @@ class __MapWidgetState extends State<_MapWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<GoogleMapCubit, GoogleMapState>(
-        listener: (context, state) {
-          state.map(
-              initial: (_) {},
-              loading: (_) {},
-              loaded: (state) {
-                setState(() {
-                  _polylines = {state.polylineItem};
+    return BlocListener<FiltersCubit, FiltersState>(
+      listener: (context, state) {
+        setState(() {
+          _polylines = _polylines
+              .map((e) => e.copyWith(
+                    colorParam: context.mapFilterTypeToColor(state.filterType),
+                  ))
+              .toSet();
+        });
+      },
+      child: BlocListener<GoogleMapCubit, GoogleMapState>(
+          listener: (context, state) {
+            state.map(
+                initial: (_) {},
+                loading: (_) {},
+                loaded: (state) {
+                  setState(() {
+                    _polylines = {
+                      state.polylineItem.copyWith(
+                        colorParam: context.mapFilterTypeToColor(
+                            context.read<FiltersCubit>().state.filterType),
+                      )
+                    };
+                  });
                 });
-              });
-        },
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                children: [
-                  PlaceSearchWidget(
-                    hintText: 'Start',
-                    onSelected: (place) {
-                      context.read<GoogleMapCubit>().setStartId(place.placeId);
-                    },
-                  ),
-                  SizedBox(height: 8),
-                  PlaceSearchWidget(
-                    hintText: 'End',
-                    onSelected: (place) {
-                      context.read<GoogleMapCubit>().setEndId(place.placeId);
-                    },
-                  ),
-                  SizedBox(height: 16),
-                ],
+          },
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  children: [
+                    PlaceSearchWidget(
+                      hintText: 'Start',
+                      onSelected: (place) {
+                        context
+                            .read<GoogleMapCubit>()
+                            .setStartId(place.placeId);
+                      },
+                    ),
+                    SizedBox(height: 8),
+                    PlaceSearchWidget(
+                      hintText: 'End',
+                      onSelected: (place) {
+                        context.read<GoogleMapCubit>().setEndId(place.placeId);
+                      },
+                    ),
+                    SizedBox(height: 16),
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: GoogleMap(
-                zoomControlsEnabled: true,
-                initialCameraPosition:
-                    CameraPosition(target: Config.krakowCenter, zoom: 14),
-                myLocationEnabled: true,
-                polylines: _polylines,
-                onMapCreated: mapController.complete,
-                onCameraMove: (position) {
-                  _cameraMoveDebouncer?.cancel();
-                  _cameraMoveDebouncer = Timer(
-                      _cameraDebouncerDuration,
-                      () =>
-                          _placeSearchCubit.setCameraLocation(position.target));
-                },
+              Expanded(
+                child: GoogleMap(
+                  zoomControlsEnabled: true,
+                  initialCameraPosition:
+                      CameraPosition(target: Config.krakowCenter, zoom: 14),
+                  myLocationEnabled: true,
+                  polylines: _polylines,
+                  onMapCreated: mapController.complete,
+                  onCameraMove: (position) {
+                    _cameraMoveDebouncer?.cancel();
+                    _cameraMoveDebouncer = Timer(
+                        _cameraDebouncerDuration,
+                        () => _placeSearchCubit
+                            .setCameraLocation(position.target));
+                  },
+                ),
               ),
-            ),
-          ],
-        ));
+            ],
+          )),
+    );
   }
 }
