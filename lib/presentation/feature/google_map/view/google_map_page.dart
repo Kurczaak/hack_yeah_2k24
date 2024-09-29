@@ -90,7 +90,13 @@ class __MapWidgetState extends State<_MapWidget> {
     return BlocListener<GoogleMapCubit, GoogleMapState>(
         listener: (context, state) {
           state.map(
-              initial: (_) {},
+              initial: (state) {
+                if (state.clear) {
+                  setState(() {
+                    _polylines = {};
+                  });
+                }
+              },
               loading: (_) {},
               loaded: (state) {
                 setState(() {
@@ -102,24 +108,7 @@ class __MapWidgetState extends State<_MapWidget> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                children: [
-                  PlaceSearchWidget(
-                    hintText: 'Start',
-                    onSelected: (place) {
-                      context.read<GoogleMapCubit>().setStartId(place.placeId);
-                    },
-                  ),
-                  SizedBox(height: 8),
-                  PlaceSearchWidget(
-                    hintText: 'End',
-                    onSelected: (place) {
-                      context.read<GoogleMapCubit>().setEndId(place.placeId);
-                    },
-                  ),
-                  SizedBox(height: 16),
-                ],
-              ),
+              child: _StartEndFinderColumn(),
             ),
             Expanded(
               child: GoogleMap(
@@ -140,6 +129,50 @@ class __MapWidgetState extends State<_MapWidget> {
             ),
           ],
         ));
+  }
+}
+
+class _StartEndFinderColumn extends StatelessWidget {
+  const _StartEndFinderColumn({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        IconButton(
+            onPressed: () {
+              context.read<GoogleMapCubit>().clear();
+              context.read<PlaceSearchCubit>().clear();
+            },
+            icon: Icon(
+              Icons.chevron_left_outlined,
+              size: 48,
+            )),
+        Expanded(
+          child: Column(
+            children: [
+              PlaceSearchWidget(
+                hintText: 'Start',
+                onSelected: (place) {
+                  context.read<GoogleMapCubit>().setStartId(place.placeId);
+                },
+              ),
+              SizedBox(height: 8),
+              PlaceSearchWidget(
+                hintText: 'End',
+                onSelected: (place) {
+                  context.read<GoogleMapCubit>().setEndId(place.placeId);
+                },
+              ),
+              SizedBox(height: 16),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
 

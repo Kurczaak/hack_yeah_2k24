@@ -16,6 +16,10 @@ class GoogleMapCubit extends Cubit<GoogleMapState> {
   GoogleMapCubit(this.repo) : super(const GoogleMapState.initial());
   final RoutesRepo repo;
 
+  void clear() {
+    emit(const GoogleMapState.initial(clear: true));
+  }
+
   Future<void> setStartId(String id) async {
     emit(GoogleMapState.initial(startId: id, endId: state.endId));
   }
