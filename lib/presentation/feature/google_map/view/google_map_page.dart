@@ -149,6 +149,7 @@ class __MapWidgetState extends State<_MapWidget> {
             ),
             Expanded(
               child: GoogleMap(
+                mapType: MapType.normal,
                 zoomControlsEnabled: true,
                 initialCameraPosition:
                     CameraPosition(target: Config.krakowCenter, zoom: 14),

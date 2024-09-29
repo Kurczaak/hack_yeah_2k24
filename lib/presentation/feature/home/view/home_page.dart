@@ -56,16 +56,24 @@ class HomeView extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          children: [
-            _AppLogo(),
-            SizedBox(height: 8),
-            _PreviewImage(),
-            SizedBox(height: 8),
-            _MottoText(),
-            SizedBox(height: 24),
-            MalopolskaLogo(),
-          ],
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _AppLogo(),
+                SizedBox(height: 8),
+                ConstrainedBox(
+                    constraints: BoxConstraints(maxHeight: 400),
+                    child: _PreviewImage()),
+                SizedBox(height: 8),
+                _MottoText(),
+                SizedBox(height: 24),
+                MalopolskaLogo(),
+                SizedBox(height: 48),
+              ],
+            ),
+          ),
         ),
       ),
     );
