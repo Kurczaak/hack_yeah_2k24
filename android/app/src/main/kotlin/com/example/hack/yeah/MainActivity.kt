@@ -1,4 +1,4 @@
-package com.example.hack_yeah
+package com.example.hackYeah
 
 import io.flutter.embedding.android.FlutterActivity
 

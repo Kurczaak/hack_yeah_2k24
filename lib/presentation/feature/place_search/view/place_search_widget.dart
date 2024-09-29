@@ -17,63 +17,76 @@ class PlaceSearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 38,
-      child: TypeAheadField<PlacePrediction>(
-        suggestionsCallback:
-            context.read<PlaceSearchCubit>().getPlacePredictions,
-        builder: (context, controller, focusNode) {
-          textController = controller;
-          return TextFormField(
-            controller: controller,
-            focusNode: focusNode,
-            textAlignVertical: TextAlignVertical.bottom,
-            autofocus: true,
-            decoration: InputDecoration(
-              prefixIcon: Icon(
-                Icons.search,
-                size: 24,
-                color: context.colorPalette.iconsPrimary.withOpacity(.35),
-              ),
-              hintText: hintText,
-              alignLabelWithHint: true,
-              hintStyle: TextStyle(
-                color: context.colorPalette.iconsPrimary.withOpacity(.5),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(
-                  width: 1,
+    return BlocListener<PlaceSearchCubit, PlaceSearchState>(
+      listener: (context, state) {
+        state.maybeMap(
+          orElse: () {},
+          initial: (state) {
+            if (state.clear) {
+              textController?.clear();
+            }
+          },
+        );
+      },
+      child: SizedBox(
+        height: 38,
+        child: TypeAheadField<PlacePrediction>(
+          suggestionsCallback:
+              context.read<PlaceSearchCubit>().getPlacePredictions,
+          builder: (context, controller, focusNode) {
+            textController = controller;
+            return TextFormField(
+              maxLines: 1,
+              controller: controller,
+              focusNode: focusNode,
+              textAlignVertical: TextAlignVertical.bottom,
+              autofocus: true,
+              decoration: InputDecoration(
+                prefixIcon: Icon(
+                  Icons.search,
+                  size: 24,
+                  color: context.colorPalette.iconsPrimary.withOpacity(.35),
+                ),
+                hintText: hintText,
+                alignLabelWithHint: true,
+                hintStyle: TextStyle(
                   color: context.colorPalette.iconsPrimary.withOpacity(.5),
                 ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(
-                  width: 1,
-                  color: context.colorPalette.iconsPrimary.withOpacity(.5),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    width: 1,
+                    color: context.colorPalette.iconsPrimary.withOpacity(.5),
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    width: 1,
+                    color: context.colorPalette.iconsPrimary.withOpacity(.5),
+                  ),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    width: 1,
+                    color: context.colorPalette.iconsPrimary.withOpacity(.5),
+                  ),
                 ),
               ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(
-                  width: 1,
-                  color: context.colorPalette.iconsPrimary.withOpacity(.5),
-                ),
-              ),
-            ),
-          );
-        },
-        onSelected: (place) {
-          textController?.value = TextEditingValue(text: place.mainText);
-          onSelected(place);
-        },
-        emptyBuilder: (context) => SizedBox(),
-        itemBuilder: (context, suggestion) {
-          return ListTile(
-            title: Text(suggestion.description),
-          );
-        },
+            );
+          },
+          onSelected: (place) {
+            textController?.value = TextEditingValue(text: place.mainText);
+            onSelected(place);
+          },
+          emptyBuilder: (context) => SizedBox(),
+          itemBuilder: (context, suggestion) {
+            return ListTile(
+              title: Text(suggestion.description),
+            );
+          },
+        ),
       ),
     );
   }

@@ -19,6 +19,12 @@ class PlaceSearchCubit extends Cubit<PlaceSearchState> {
 
   static const _radiusInMeters = 1000.0;
 
+  void clear() {
+    emit(const PlaceSearchState.initial(
+      clear: true,
+    ));
+  }
+
   void setCameraLocation(LatLng location) {
     cameraLocation = location;
   }
