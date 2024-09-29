@@ -15,7 +15,7 @@ abstract class RoutesClient {
   @GET('/ourRoute')
   Future<RoutesResponseDTO> getSampleRoute();
 
-  @GET('/basicRoute')
+  @POST('/basicRoute')
   Future<RoutesResponseDTO> getRoute(
       {@Body() required GetRouteRequest request});
 }

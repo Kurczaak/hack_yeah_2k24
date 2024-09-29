@@ -27,18 +27,25 @@ class GoogleMapCubit extends Cubit<GoogleMapState> {
   Future<void> setEndId(String id) async {
     emit(GoogleMapState.initial(startId: state.startId, endId: id));
     if (state.startId != null) {
-      fetchPolyline();
+      fetchPolyline(
+        startId: state.startId!,
+        endId: id,
+      );
     }
   }
 
-  Future<void> fetchPolyline() async {
-    if (state.startId == null || state.endId == null) {
-      return;
-    }
+  Future<void> fetchPolyline({
+    required String startId,
+    required String endId,
+  }) async {
     try {
       emit(GoogleMapState.loading());
-      final result = await getIt<RoutesRepo>().getSampleRoute();
-      final decodedPolyline = result.routes.first.polyline.decodePolyline();
+      final result = await getIt<RoutesRepo>().getRoute(
+        startId: startId,
+        endId: endId,
+      );
+      final decodedPolyline = result.routes.first.polyline
+          .decodePolyline(result.routes.first.polyline.encodedPolyline);
 
       // Convert decoded points directly into LatLng objects
       final googleLatLng = decodedPolyline
