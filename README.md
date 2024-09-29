@@ -2,10 +2,15 @@
 
 ## 🚴Welloway
 
+### 📱Mobile app
+
 <img width="266" alt="main" src="https://github.com/user-attachments/assets/df42c7ad-c08d-4183-b89d-c04d9cedb5f4">
 <img width="266" alt="drawer" src="https://github.com/user-attachments/assets/9a5b3ef4-fdb9-4d82-81a9-0bb54789d73a">
 <img width="266" alt="map" src="https://github.com/user-attachments/assets/20897856-d940-4047-bca3-429b4e3766dd">
 
+### :computer: Web app
+
+<img width="799" alt="web" src="https://github.com/user-attachments/assets/2381b1f5-92f0-42c4-9585-43cd5d5c142d">
 
 
 ## 🏛️ Architecture
