@@ -137,7 +137,7 @@ class __MapWidgetState extends State<_MapWidget> {
                 });
                 mapController.future.then((controller) {
                   controller.animateCamera(CameraUpdate.newLatLngZoom(
-                      state.polylineItem.points.last, 15));
+                      state.polylineItem.points.first, 15));
                 });
               });
         },
