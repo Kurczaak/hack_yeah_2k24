@@ -2,9 +2,9 @@
 
 ## 🚴Welloway
 
-<img width="300" alt="main" src="https://github.com/user-attachments/assets/df42c7ad-c08d-4183-b89d-c04d9cedb5f4">
-<img width="300" alt="drawer" src="https://github.com/user-attachments/assets/9a5b3ef4-fdb9-4d82-81a9-0bb54789d73a">
-<img width="300" alt="map" src="https://github.com/user-attachments/assets/20897856-d940-4047-bca3-429b4e3766dd">
+<img width="266" alt="main" src="https://github.com/user-attachments/assets/df42c7ad-c08d-4183-b89d-c04d9cedb5f4">
+<img width="266" alt="drawer" src="https://github.com/user-attachments/assets/9a5b3ef4-fdb9-4d82-81a9-0bb54789d73a">
+<img width="266" alt="map" src="https://github.com/user-attachments/assets/20897856-d940-4047-bca3-429b4e3766dd">
 
 
 
