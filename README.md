@@ -1,4 +1,14 @@
 # Hack Yeah 2024 Krakow
+
+## 🚴Welloway
+
+<img width="266" alt="main" src="https://github.com/user-attachments/assets/df42c7ad-c08d-4183-b89d-c04d9cedb5f4">
+<img width="266" alt="drawer" src="https://github.com/user-attachments/assets/9a5b3ef4-fdb9-4d82-81a9-0bb54789d73a">
+<img width="266" alt="map" src="https://github.com/user-attachments/assets/20897856-d940-4047-bca3-429b4e3766dd">
+
+
+
+## 🏛️ Architecture
 ![Architecture][architecture]
 
 This project utilizes clean architecture principles.
@@ -14,7 +24,7 @@ The layer a user interacts with
 
 ---
 
-## Developer's set-up 🪛
+## 🪛 Developer's set-up
 
 #### 🎯 Install dependencies
 
@@ -36,7 +46,7 @@ The layer a user interacts with
 
 `melos run builder`
 
-## Useful snippets 📝
+## 📝 Useful snippets
 
 #### Run build runner
 
@@ -52,7 +62,7 @@ The layer a user interacts with
 
 ---
 
-## Getting Started 🚀
+## 🚀 Getting Started
 
 This project contains 3 flavors:
 
@@ -77,7 +87,7 @@ _\*Hack Yeah 2k24 works on iOS and Android._
 
 ---
 
-## Working with Translations 🌐
+## 🌐 Working with Translations
 
 This project relies on [flutter_localizations][flutter_localizations_link] and follows the [official internationalization guide for Flutter][internationalization_link].
 
