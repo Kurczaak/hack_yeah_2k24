@@ -9,6 +9,6 @@ part 'routes_client.g.dart';
 abstract class RoutesClient {
   factory RoutesClient(Dio dio) = _RoutesClient;
 
-  @GET('${Config.baseUrl}/sample_route')
+  @GET('${Config.baseUrl}/ourRoute')
   Future<RoutesResponseDTO> getSampleRoute();
 }

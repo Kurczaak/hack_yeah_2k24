@@ -1,10 +1,12 @@
 import 'dart:async';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
+import 'package:hack_yeah_2k24/app/router/router.gr.dart';
+import 'package:hack_yeah_2k24/data/model/response/polyline_dto.dart';
+import 'package:hack_yeah_2k24/di/injection.dart';
+import 'package:hack_yeah_2k24/domain/repositories/routes_repo.dart';
 import '../google_map.dart';
 
 @RoutePage()
@@ -14,7 +16,7 @@ class GoogleMapPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => GoogleMapCubit(),
+      create: (_) => getIt<GoogleMapCubit>()..fetchPolyline(),
       child: const GoogleMapView(),
     );
   }
@@ -27,7 +29,7 @@ class GoogleMapView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GoogleMapCubit, GoogleMapState>(
       builder: (context, state) {
-        return _MapWidget();
+        return const _MapWidget();
       },
     );
   }
@@ -43,26 +45,29 @@ class _MapWidget extends StatefulWidget {
 class __MapWidgetState extends State<_MapWidget> {
   final Completer<GoogleMapController> mapController =
       Completer<GoogleMapController>();
+
+  Set<Polyline> _polylines = {}; // Set to hold the polyline
+
   @override
   Widget build(BuildContext context) {
-    return GoogleMap(
-      initialCameraPosition: CameraPosition(target: LatLng(52.24, 21.02)),
-      // padding: const EdgeInsets.only(
-      //   bottom: AppDimens.rangeSectionHeight,
-      //   top: AppDimens.horizontalPadding,
-      // ),
-      // initialCameraPosition:
-      //     MapConstants.defaultLocation.toCameraPosition(),
-      myLocationEnabled: true,
-      polylines: {},
-      onMapCreated: mapController.complete,
-      // markers: markers,
-      // circles: !kDebugMode
-      //     ? {}
-      //     : {
-      //         center,
-      //       },
-      // onCameraMove: onCameraMove,
+    return BlocListener<GoogleMapCubit, GoogleMapState>(
+      listener: (context, state) {
+        state.map(
+            initial: (_) {},
+            loading: (_) {},
+            loaded: (state) {
+              setState(() {
+                _polylines = {state.polylineItem};
+              });
+            });
+      },
+      child: GoogleMap(
+        zoomControlsEnabled: true,
+        initialCameraPosition: CameraPosition(target: LatLng(52.24, 21.02)),
+        myLocationEnabled: true,
+        polylines: _polylines,
+        onMapCreated: mapController.complete,
+      ),
     );
   }
 }
