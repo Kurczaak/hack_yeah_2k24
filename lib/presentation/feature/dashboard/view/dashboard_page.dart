@@ -22,15 +22,15 @@ class DashboardPage extends StatelessWidget {
           onTap: tabsRouter.setActiveIndex,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(size: 28, Icons.home),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person_pin_circle_rounded),
+              icon: Icon(size: 28, Icons.person_pin_circle_rounded),
               label: 'Map',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.star_border),
+              icon: Icon(size: 28, Icons.star_border),
               label: 'Feedback',
             )
           ],
