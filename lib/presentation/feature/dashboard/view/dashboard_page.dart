@@ -13,7 +13,7 @@ class DashboardPage extends StatelessWidget {
       routes: const [
         HomeRoute(),
         GoogleMapRoute(),
-        GoogleMapRoute(),
+        MyWaysRoute(),
       ],
       bottomNavigationBuilder: (_, tabsRouter) {
         return BottomNavigationBar(
@@ -31,7 +31,7 @@ class DashboardPage extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Icon(size: 28, Icons.star_border),
-              label: 'Feedback',
+              label: 'My ways',
             )
           ],
         );

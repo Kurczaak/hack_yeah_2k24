@@ -81,7 +81,7 @@ class HomeView extends StatelessWidget {
 }
 
 class _AppLogo extends StatelessWidget {
-  const _AppLogo({super.key});
+  const _AppLogo();
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +93,7 @@ class _AppLogo extends StatelessWidget {
 }
 
 class _PreviewImage extends StatelessWidget {
-  const _PreviewImage({super.key});
+  const _PreviewImage();
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +108,7 @@ class _PreviewImage extends StatelessWidget {
 }
 
 class _MottoText extends StatelessWidget {
-  const _MottoText({super.key});
+  const _MottoText();
 
   @override
   Widget build(BuildContext context) {
