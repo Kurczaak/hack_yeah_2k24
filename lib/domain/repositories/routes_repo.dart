@@ -8,4 +8,10 @@ class RoutesRepo {
 
   RoutesRepo({required this.dataSource});
   Future<RoutesResponseDTO> getSampleRoute() => dataSource.getSampleRoute();
+  // TODO: Implement the method below
+  Future<RoutesResponseDTO> getRoute({
+    required String startId,
+    required String endId,
+  }) =>
+      dataSource.getSampleRoute();
 }
