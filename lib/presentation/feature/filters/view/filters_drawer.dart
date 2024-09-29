@@ -105,8 +105,7 @@ class FiltersView extends StatelessWidget {
 }
 
 class _DrawerButton extends StatelessWidget {
-  const _DrawerButton(
-      {required this.onPressed, required this.filterType});
+  const _DrawerButton({required this.onPressed, required this.filterType});
 
   final VoidCallback onPressed;
   final FilterType filterType;

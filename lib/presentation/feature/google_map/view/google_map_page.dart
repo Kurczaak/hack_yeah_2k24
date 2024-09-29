@@ -173,9 +173,7 @@ class __MapWidgetState extends State<_MapWidget> {
 }
 
 class _StartEndFinderColumn extends StatelessWidget {
-  const _StartEndFinderColumn({
-    super.key,
-  });
+  const _StartEndFinderColumn();
 
   @override
   Widget build(BuildContext context) {
